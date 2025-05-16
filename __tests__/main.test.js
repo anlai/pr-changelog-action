@@ -153,3 +153,34 @@ describe('existing changelog - previous versions, no pending changes', () => {
 
 });
 
+describe('malformed changelog', () => {
+
+    beforeEach(() => {
+        const contents = '- change 1\n- change 2\n\nchange 3\n#v1.0.0\nchange 4\n   change 5\n- change 6\n-change 7\n##  v0.9.0\nchange a\n\n\n';
+        fs.writeFileSync(changelogPath, contents);
+    })
+
+    afterEach(() => {
+        if (fs.existsSync(changelogPath)) {
+            fs.unlinkSync(changelogPath);
+        }
+    });
+
+    test('existing changelog corrected, no new input', () => {
+        const context = {
+            eventName: 'pull_request',
+            payload: {
+                pull_request: {
+                    title: 'sample pull request',
+                    body: ''
+                }
+            }
+        };
+
+        main.run(context);
+
+        const results = fs.readFileSync(changelogPath, 'UTF8');
+        expect(results).toBe('- change 1\n- change 2\n- change 3\n\n## v1.0.0\n- change 4\n- change 5\n- change 6\n- change 7\n\n## v0.9.0\n- change a');
+    });
+
+});

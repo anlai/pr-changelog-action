@@ -11,12 +11,34 @@ const changelogPath = path.join(testDir, CHANGELOG_FILENAME);
 function sanitize_line(line) {
     line = line.trim();
 
-    if (line.startsWith('-'))
-    {
+    if (line.startsWith('#')) {
+        return `## ${line.replaceAll('#', '').trim()}`;
+    }
+
+    if (line.startsWith('-')) {
         return `- ${line.substring(1).trim()}`;
     }
 
     return `- ${line.trim()}`;
+}
+
+function correct_existing(lines) {
+    const results = [];
+
+    lines = lines.filter(line => line.trim() !== '');
+    for(let i = 0; i < lines.length; i++) {
+        let sanitized = sanitize_line(lines[i]);
+
+        if (sanitized.startsWith('#')) {
+            results.push('');
+            results.push(sanitized);
+        }
+        else {
+            results.push(sanitized);
+        }
+    }
+
+    return results;
 }
 
 async function run(context) {
@@ -27,32 +49,24 @@ async function run(context) {
 
             const description = payload.pull_request.body.trim().split('\n').filter(line => line.trim() !== '').map(line => sanitize_line(line));
 
-            const existingContents = fs.existsSync(changelogPath) ?
+            let existingContents = fs.existsSync(changelogPath) ?
                 fs.readFileSync(changelogPath, 'UTF8').trim().split('\n') : 
                 [];
 
-            const pending = [];
+            existingContents = correct_existing(existingContents);
 
+            const pending = [];
             if (existingContents.length > 0) {
                 do {
-
                     var element = existingContents.shift();
 
-                    if (element[0] === '#') {
-                        existingContents.unshift(element);
+                    if (!element) {
+                        existingContents.unshift('');
                         break;
                     }
 
-                    if (element) {
-                        pending.push(element);
-                    }
-
+                    pending.push(element);
                 } while(existingContents.length > 0);
-            }
-                        
-            // add a spacing if an existing version exists
-            if (existingContents.length > 0) {
-                existingContents.unshift('');
             }
 
             const results = ([...pending, ...description, ...existingContents]);
