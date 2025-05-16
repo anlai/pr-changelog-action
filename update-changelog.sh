@@ -15,4 +15,4 @@ fi
 { echo ""; cat $TEMP_FILE; } > temp && mv temp $TEMP_FILE
 { echo "## Current"; cat $TEMP_FILE; } > temp && mv temp $TEMP_FILE
 
-cp $TEMP_FILE $OUTPUT_FILE
+mv $TEMP_FILE $OUTPUT_FILE
