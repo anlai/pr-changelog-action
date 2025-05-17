@@ -17,13 +17,18 @@ runs:
     with:
       ref: ${{ github.event.pull_request.head.ref }}
 
-  # - name: Get Current Changelog
-  #   uses: actions/checkout@v4
-  #   with:
-  #     ref: ${{ github.event.pull_request.base.ref }}
-  #     sparse-checkout: |
-  #       CHANGELOG.md
-  #     sparse-checkout-cone-mode: false
+  - name: Get Current Changelog
+    uses: actions/checkout@v4
+    with:
+      ref: ${{ github.event.pull_request.base.ref }}
+      sparse-checkout: |
+        CHANGELOG.md
+      sparse-checkout-cone-mode: false
+
+  - name: show changelog
+    run: |
+      cat CHANGELOG.md
+    shell: bash
 
   # update the changelog file
 
