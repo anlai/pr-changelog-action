@@ -47,10 +47,16 @@ runs:
       git stash -- CHANGELOG.md
       git pull origin
       git checkout ${{ github.event.pull_request.head.ref }}
-      git stash pop
-      git add .
-      git commit -m 'updating changelog ${{ github.run_number }}'
-      git push origin ${{ github.event.pull_request.head.ref }}
+      git checkout stash -- CHANGELOG.md
+
+      echo ""
+      echo ""
+      git status
+
+      # git stash pop
+      # git add .
+      # git commit -m 'updating changelog ${{ github.run_number }}'
+      # git push origin ${{ github.event.pull_request.head.ref }}
     shell: bash
 
   
