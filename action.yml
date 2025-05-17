@@ -36,16 +36,8 @@ runs:
     shell: bash
 
   # commit the changelog file to github.event.pull_request.head.ref
-
-  - name: commit changes
-    uses: actions/add-and-commit@v1
+  - name: commit the changes
+    uses: stefanzweifel/git-auto-commit-action@master
     with:
-      message: changelog updated from ${{ github.run_number }}
-      files: CHANGELOG.md
-
-  # - name: commit the changes
-  #   uses: stefanzweifel/git-auto-commit-action@master
-  #   with:
-  #     file_pattern: CHANGELOG.md
-  #     # branch: ${{ github.event.pull_request.head.ref }}
-  #     commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"
+      branch: ${{ github.event.pull_request.head.ref }}
+      commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"
