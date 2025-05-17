@@ -12,21 +12,24 @@ inputs:
 runs:
   using: 'composite'
   steps:
-  - name: checkout
-    uses: actions/checkout@v4
-  - name: Get Current Changelog
-    uses: actions/checkout@v4
-    with:
-      ref: ${{ github.event.pull_request.base.ref }}
-      sparse-checkout: |
-        CHANGELOG.md
-      sparse-checkout-cone-mode: false
+  # - name: checkout
+  #   uses: actions/checkout@v4
+  # - name: Get Current Changelog
+  #   uses: actions/checkout@v4
+  #   with:
+  #     ref: ${{ github.event.pull_request.base.ref }}
+  #     sparse-checkout: |
+  #       CHANGELOG.md
+  #     sparse-checkout-cone-mode: false
 
   # update the changelog file
 
   - name: Update CHANGELOG
     run: |
       echo "${{ github.run_number }}" >> CHANGELOG.md
+      echo ""
+      echo ""
+      cat CHANGELOG.md
     shell: bash
 
   # commit the changelog file to github.event.pull_request.head.ref
