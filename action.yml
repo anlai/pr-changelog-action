@@ -45,6 +45,8 @@ runs:
   - name: show branch
     run: |
       git branch -v
+      git checkout ${{ github.event.pull_request.head.ref }}
+      git branch -v
     shell: bash
 
   # commit the changelog file to github.event.pull_request.head.ref
