@@ -16,6 +16,7 @@ runs:
     uses: actions/checkout@v4
     with:
       ref: ${{ github.event.pull_request.head.ref }}
+
   # - name: Get Current Changelog
   #   uses: actions/checkout@v4
   #   with:
@@ -36,9 +37,15 @@ runs:
 
   # commit the changelog file to github.event.pull_request.head.ref
 
-  - name: commit the changes
-    uses: stefanzweifel/git-auto-commit-action@master
+  - name: commit changes
+    uses: actions/add-and-commit@v1
     with:
-      file_pattern: CHANGELOG.md
-      # branch: ${{ github.event.pull_request.head.ref }}
-      commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"
+      message: changelog updated from ${{ github.run_number }}
+      files: CHANGELOG.md
+
+  # - name: commit the changes
+  #   uses: stefanzweifel/git-auto-commit-action@master
+  #   with:
+  #     file_pattern: CHANGELOG.md
+  #     # branch: ${{ github.event.pull_request.head.ref }}
+  #     commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"
