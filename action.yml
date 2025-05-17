@@ -1,0 +1,10 @@
+name: 'PR Change Log Generator'
+description: ''
+inputs:
+  output-file:
+    description: ''
+    required: false
+    default: CHANGELOG.md
+runs:
+  using: 'node20'
+  main: 'src/index.js'

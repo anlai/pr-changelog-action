@@ -45,8 +45,11 @@ async function run(context) {
     try
     {
         const payload = context.payload;
-        if (payload.pull_request) {
+        
+        const labels = payload.pull_request.labels.map(label => label.name);
+        console.log('Pull Request Labels:', labels);
 
+        if (payload.pull_request) {
             const description = payload.pull_request.body.trim().split('\n').filter(line => line.trim() !== '').map(line => sanitize_line(line));
 
             let existingContents = fs.existsSync(changelogPath) ?
