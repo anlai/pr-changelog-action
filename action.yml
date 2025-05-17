@@ -25,6 +25,7 @@ runs:
   - name: Update CHANGELOG
     run: |
       echo "${{ github.run_number }}" >> CHANGELOG.md
+    shell: bash
 
   # commit the changelog file to github.event.pull_request.head.ref
 
