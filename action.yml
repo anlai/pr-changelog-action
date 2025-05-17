@@ -44,7 +44,7 @@ runs:
 
   - name: show branch
     run: |
-      git stash
+      git stash -- CHANGELOG.md
       git checkout ${{ github.event.pull_request.head.ref }}
       git stash pop
     shell: bash
