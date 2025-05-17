@@ -5,6 +5,32 @@ inputs:
     description: ''
     required: false
     default: CHANGELOG.md
+# runs:
+#   using: 'node20'
+#   main: 'src/index.js'
+
 runs:
-  using: 'node20'
-  main: 'src/index.js'
+  using: 'composite'
+  steps:
+  - name: Get Current Changelog
+    uses: actions/checkout@v4
+    with:
+      ref: ${{ github.event.pull_request.base.ref }}
+      sparse-checkout: |
+        CHANGELOG.md
+      sparse-checkout-cone-mode: false
+
+  # update the changelog file
+
+  - name: Update CHANGELOG
+    run: |
+      echo "${{ github.run_number }}" >> CHANGELOG.md
+
+  # commit the changelog file to github.event.pull_request.head.ref
+
+  - name: commit the changes
+    uses: stefanzweifel/git-auto-commit-action@master
+    with:
+      file_pattern: CHANGELOG.md
+      branch: ${{ github.event.pull_request.head.ref }}
+      commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"
