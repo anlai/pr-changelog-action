@@ -53,6 +53,8 @@ runs:
       echo ""
       git status
 
+      cat CHANGELOG.md
+
       # git stash pop
       # git add .
       # git commit -m 'updating changelog ${{ github.run_number }}'
