@@ -63,7 +63,7 @@ runs:
 
   - name: TESTING
     run: |
-      echo "PULL_REQUEST_DATA=$(echo '${{ toJSON(github.context.payload.pull_request) }}' | sed 's/%/%25/g; s/\n//g; s/\r//g')" >> $GITHUB_ENV
+      PULL_REQUEST_DATA=$(echo '${{ toJSON(github.context.payload.pull_request) }}' | sed 's/%/%25/g; s/\n//g; s/\r//g')
       node "${{ github.action_path }}/src/index.js" "$(pwd)/CHANGELOG.md"
     shell: bash
 
