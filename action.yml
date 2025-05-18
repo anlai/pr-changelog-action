@@ -63,7 +63,7 @@ runs:
 
   - name: TESTING
     run: |
-      npm i @actions/core @actions/github
+      npm install @actions/core @actions/github
       node "${{ github.action_path }}/src/index.js" "$(pwd)/CHANGELOG.md"
     shell: bash
 
