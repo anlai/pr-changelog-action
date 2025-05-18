@@ -18,3 +18,4 @@ const changelogPath = `${process.argv[2]}/CHANGELOG.md`;
 console.log(fs.readFileSync(changelogPath, 'UTF8').trim().split('\n'));
 
 console.log(github.context);
+console.log(github);
