@@ -61,9 +61,14 @@ runs:
       ls "${{ github.action_path }}"
     shell: bash
 
-  # commit the changelog file to github.event.pull_request.head.ref
-  - name: commit the changes
-    uses: stefanzweifel/git-auto-commit-action@master
-    with:
-      branch: ${{ github.event.pull_request.head.ref }}
-      commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"
+  - name: TESTING
+    run: |
+      node "${{ github.action_path }}/src/index.js"
+    shell: bash
+
+  # # commit the changelog file to github.event.pull_request.head.ref
+  # - name: commit the changes
+  #   uses: stefanzweifel/git-auto-commit-action@master
+  #   with:
+  #     branch: ${{ github.event.pull_request.head.ref }}
+  #     commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"
