@@ -63,7 +63,7 @@ runs:
 
   - name: TESTING
     run: |
-      node "${{ github.action_path }}/src/index.js"
+      node "${{ github.action_path }}/src/index.js" "$(pwd)/CHANGELOG.md"
     shell: bash
 
   # # commit the changelog file to github.event.pull_request.head.ref
