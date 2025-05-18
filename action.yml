@@ -56,6 +56,11 @@ runs:
       cat CHANGELOG.md
     shell: bash
 
+  - name: DEBUG
+    run: |
+      ls
+    shell: bash
+
   # commit the changelog file to github.event.pull_request.head.ref
   - name: commit the changes
     uses: stefanzweifel/git-auto-commit-action@master
