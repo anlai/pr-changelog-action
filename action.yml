@@ -12,8 +12,7 @@ inputs:
   verbose:
     description: ''
     required: false
-    type: boolean
-    default: false
+    default: 'false'
 outputs:
   changelog:
     description: ''
