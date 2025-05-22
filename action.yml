@@ -4,8 +4,8 @@ inputs:
   action:
     description: ''
     required: false
-    default: 'generate'
-  output-file:
+    default: 'generate' # options: generate, latest-changes, tag
+  changelog-path:
     description: ''
     required: false
     default: CHANGELOG.md
@@ -24,7 +24,7 @@ runs:
   - name: generate change log
     uses: anlai/pr-changelog-action/generate@initial
     with:
-      output-file: ${{ inputs.output-file }}
+      changelog-path: ${{ inputs.changelog-path }}
       verbose: ${{ inputs.verbose }}
     if: "${{ inputs.action == 'generate' }}"
 
@@ -32,16 +32,19 @@ runs:
     id: latest-changes
     uses: anlai/pr-changelog-action/latest-changes@initial
     with:
-      changelog-file: ${{ inputs.output-file }}
+      changelog-path: ${{ inputs.changelog-path }}
       verbose: ${{ inputs.verbose }}
     if: "${{ inputs.action == 'latest-changes' }}"
 
-  - name: testing output
-    run: |
-      echo "outer action test"
-      echo "${{ steps.latest-changes.outputs.changelog }}"
-    shell: bash
-    if: "${{ inputs.action == 'latest-changes' }}"
+  # - name: tag pending changes
+  #   id: tag-changes
+  #   uses: anlai/pr-changelog-action/tag@initial
+  #   with:
+  #     changelog-path: ${{ inputs.changelog-path }}
+  #     version: ${{ inputs.version }}
+  #     verbose: ${{ inputs.verbose }}
+  #   if: "${{ inputs.action == 'tag' }}"
+
 
   # - name: set latest changes output
   #   run: |
