@@ -1,5 +1,5 @@
 const github = require('@actions/github');
-const main = require('main.js');
+const main = require('./main.js');
 
 // import { run } from './main.js';
 
