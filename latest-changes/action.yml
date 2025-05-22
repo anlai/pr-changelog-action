@@ -14,20 +14,16 @@ outputs:
     description: ''
 
 runs:
-  using: 'node20'
-  main: './src/index.js'
+  using: 'composite'
+  steps:
+  - name: checkout pr source branch
+    uses: actions/checkout@v4
+    with:
+      ref: ${{ github.event.pull_request.head.ref }}
 
-# runs:
-#   using: 'composite'
-#   steps:
-#   - name: checkout pr source branch
-#     uses: actions/checkout@v4
-#     with:
-#       ref: ${{ github.event.pull_request.head.ref }}
-
-#   - name: extract pending changes
-#     run: |
-#       npm install
-#       node ./src/index.js "${{ github.workspace }}/${{ inputs.changelog-file }}"
-#     shell: bash
-#     working-directory: "${{ github.action_path }}"
+  - name: extract pending changes
+    run: |
+      npm install
+      node ./src/index.js "${{ github.workspace }}/${{ inputs.changelog-file }}"
+    shell: bash
+    working-directory: "${{ github.action_path }}"
