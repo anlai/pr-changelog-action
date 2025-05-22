@@ -85,8 +85,4 @@ async function run(context, output_file, verbose) {
     }
 }
 
-export default run;
-
-// module.exports = {
-//     run
-// };
+exports.run = run;
