@@ -24,6 +24,13 @@ runs:
       verbose: ${{ inputs.verbose }}
     if: "${{ inputs.action == 'generate' }}"
 
+  - name: get pending changes from change log
+    uses: anlai/pr-changelog-action/latest-changes@initial
+    with:
+      changelog-file: ${{ inputs.output-file }}
+      verbose: ${{ inputs.verbose }}
+    if: "${{ inputs.action == 'latest-changes' }}"
+
 # runs:
 #   using: 'composite'
 #   steps:
