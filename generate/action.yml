@@ -27,9 +27,9 @@ runs:
   - name: generate new change Log
     run: |
       npm install
-      node index.js "${{  github.workspace }}/${{ inputs.output-file }}"
+      node ./src/index.js "${{  github.workspace }}/${{ inputs.output-file }}"
     shell: bash
-    working-directory: "${{ github.action_path }}/generate-changelog-action/src"
+    working-directory: "${{ github.action_path }}/generate-changelog-action"
 
   - name: show updated changelog
     run: |
