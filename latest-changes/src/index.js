@@ -24,17 +24,5 @@ if (verbose) {
 console.log(`Processing file: ${filename}...`);
 
 const results = main.run(github.context, filename, verbose);
-// core.setOutput('changelog', results);
-
-console.log(results);
-// fs.appendFileSync(process.env.GITHUB_OUTPUT, `changelog='${results}'`);
-
-// fs.appendFileSync(process.env.GITHUB_OUTPUT, 'changelog=testing', { flag: 'a' });
-
-// fs.writeFileSync('PENDING_CHANGES.md', results);
 
 core.setOutput('changelog', results);
-
-// const output = process.env['GITHUB_OUTPUT'];
-// const content = `changelog<<EOF\n${results}\nEOF\n`;
-// fs.appendFileSync(output, content);
