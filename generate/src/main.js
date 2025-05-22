@@ -1,12 +1,12 @@
-// const core = require('@actions/core');
-// const github = require('@actions/github');
-// const fs = require('fs');
-// const path = require('path');
+const core = require('@actions/core');
+const github = require('@actions/github');
+const fs = require('fs');
+const path = require('path');
 
-import core from '@actions/core';
-import github from '@actions/github';
-import fs from 'fs';
-import path from 'path';
+// import core from '@actions/core';
+// import github from '@actions/github';
+// import fs from 'fs';
+// import path from 'path';
 
 // const CHANGELOG_FILENAME = 'CHANGELOG.md';
 
@@ -90,4 +90,6 @@ async function run(context, output_file, verbose) {
     }
 }
 
-export default run;
+module.exports = { run };
+
+// export default run;
