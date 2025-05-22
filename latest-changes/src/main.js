@@ -8,7 +8,7 @@ function run(context, filepath) {
 
     console.log(existingContents);
 
-    return existingContents.join('\n');
+    return existingContents.map(line => line.trim()).join('\n');
 }
 
 module.exports = { run };
