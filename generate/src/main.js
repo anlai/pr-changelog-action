@@ -43,7 +43,7 @@ function correct_existing(lines) {
     return results;
 }
 
-async function run(context, output_file, verbose) {
+exports.run = async function run(context, output_file, verbose) {
     try
     {
         const payload = context.payload;
@@ -84,5 +84,3 @@ async function run(context, output_file, verbose) {
         core.setFailed(error.message);
     }
 }
-
-exports.run = run;
