@@ -28,4 +28,4 @@ const results = main.run(github.context, filename, verbose);
 console.log(results);
 // fs.appendFileSync(process.env.GITHUB_OUTPUT, `changelog='${results}'`);
 
-fs.appendFileSync(process.env.GITHUB_OUTPUT, 'changelog=testing');
+fs.appendFileSync(process.env.GITHUB_OUTPUT, 'changelog=testing', { flag: 'a' });
