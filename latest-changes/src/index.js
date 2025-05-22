@@ -2,6 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const main = require('./main.js');
 
+const os = require('os');
 const fs = require('fs');
 const path = require('path');
 
@@ -30,4 +31,7 @@ console.log(results);
 
 // fs.appendFileSync(process.env.GITHUB_OUTPUT, 'changelog=testing', { flag: 'a' });
 
-fs.writeFileSync('PENDING_CHANGES.md', results);
+// fs.writeFileSync('PENDING_CHANGES.md', results);
+
+const output = process.env['GITHUB_OUTPUT'];
+fs.appendFileSync(output, `changelog=${results}${os.EOL}`);
