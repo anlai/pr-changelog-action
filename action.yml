@@ -13,6 +13,9 @@ inputs:
     description: ''
     required: false
     default: false
+outputs:
+  changelog:
+    description: ''
 
 runs:
   using: 'composite'
@@ -25,10 +28,19 @@ runs:
     if: "${{ inputs.action == 'generate' }}"
 
   - name: get pending changes from change log
+    id: latest-changes
     uses: anlai/pr-changelog-action/latest-changes@initial
     with:
       changelog-file: ${{ inputs.output-file }}
       verbose: ${{ inputs.verbose }}
+    if: "${{ inputs.action == 'latest-changes' }}"
+
+  - name: set latest changes output
+    run: |
+      echo "changelog<<EOF" >> $GITHUB_OUTPUT
+      echo "${{ steps.latest-changes.outputs.changelog }}" >> $GITHUB_OUTPUT
+      echo "EOF" >> $GITHUB_OUTPUT
+    shell: bash
     if: "${{ inputs.action == 'latest-changes' }}"
 
 # runs:
