@@ -1,0 +1,38 @@
+name: Generate Change Log
+description: ''
+inputs:
+  output-file:
+    description: ''
+    required: false
+    default: 'CHANGELOG.md'
+  verbose:
+    description: ''
+    required: false
+    default: false
+
+runs:
+  using: 'composite'
+  steps:
+  - name: checkout pr target branch
+    uses: actions/checkout@v4
+    with:
+      ref: ${{ github.event.pull_request.base.ref }}
+
+  - name: show current changelog
+    run: |
+      cat "${{ inputs.output-file }}"
+    shell: bash
+    if: ${{ inputs.verbose == true }}
+
+  - name: generate new change Log
+    run: |
+      npm install
+      node index.js "${{  github.workspace }}/${{ inputs.output-file }}"
+    working-directory: "${{ github.action_path }}/generate-changelog-action/src"
+
+  - name: show updated changelog
+    run: |
+      cat "${{ inputs.output-file }}"
+    shell: bash
+    if: ${{ inputs.verbose == true }}
+  
