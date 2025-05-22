@@ -14,7 +14,7 @@ process.argv.forEach((val, index) => {
 
 console.log(path.resolve(__dirname));
 
-const changelogPath = `${process.argv[2]}/CHANGELOG.md`;
+const changelogPath = `${process.argv[2]}`;
 console.log(fs.readFileSync(changelogPath, 'UTF8').trim().split('\n'));
 
 console.log(github.context);
