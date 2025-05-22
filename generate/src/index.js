@@ -31,6 +31,7 @@ console.log(`Processing file: ${filename}...`);
 
 main.run(github.context, filename, verbose);
 
+
 // process.argv.forEach((val, index) => {
 //     console.log(`${index}: ${val}`);
 // });

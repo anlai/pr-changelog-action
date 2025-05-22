@@ -1,3 +1,4 @@
+const core = require('@actions/core');
 const github = require('@actions/github');
 const main = require('./main.js');
 
@@ -21,4 +22,5 @@ if (verbose) {
 
 console.log(`Processing file: ${filename}...`);
 
-main.run(github.context, filename, verbose);
+const results = main.run(github.context, filename, verbose);
+core.setOutput('changelog', results);
