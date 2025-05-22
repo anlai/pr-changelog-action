@@ -25,4 +25,5 @@ console.log(`Processing file: ${filename}...`);
 const results = main.run(github.context, filename, verbose);
 // core.setOutput('changelog', results);
 
+console.log(results);
 fs.writeFileSync(process.env.GITHUB_OUTPUT, `changelog='${results}'`);
