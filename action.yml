@@ -24,6 +24,7 @@ runs:
   - name: selected action
     run: |
       echo "running ${{ inputs.action }}..."
+      echo "verbose mode ${{ input.verbose }}..."
     shell: bash
 
   - name: generate change log
