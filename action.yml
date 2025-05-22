@@ -18,7 +18,7 @@ runs:
   using: 'composite'
   steps:
   - name: generate change log
-    uses: ./generate-changelog-action
+    uses: anlai/pr-changelog-action/generate-changelog-action@initial
     with:
       output-file: ${{ inputs.output-file }}
       verbose: ${{ inputs.verbose }}
