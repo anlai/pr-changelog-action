@@ -6,7 +6,7 @@ function run(context, filepath) {
         fs.readFileSync(filepath, 'UTF8').trim().split('\n') :
         [];
 
-    console.log(existingContents);
+    console.log(existingContents.map(line => line.trim()));
 
     return existingContents.map(line => line.trim()).join('\n');
 }
