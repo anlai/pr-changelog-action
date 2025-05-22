@@ -21,6 +21,11 @@ outputs:
 runs:
   using: 'composite'
   steps:
+  - name: selected action
+    run: |
+      echo "running ${{ inputs.action }}..."
+    shell: bash
+
   - name: generate change log
     uses: anlai/pr-changelog-action/generate@initial
     with:
