@@ -1,5 +1,5 @@
 const github = require('@actions/github');
-// import { run } from './main.js';
+import { run } from './main.js';
 
 // // output_file = corsCheck.getInput('output-file');
 
@@ -8,14 +8,33 @@ const github = require('@actions/github');
 const fs = require('fs');
 const path = require('path');
 
-process.argv.forEach((val, index) => {
-    console.log(`${index}: ${val}`);
-});
+// Get arguments starting from index 2 (skip node and script path)
+const args = process.argv.slice(2);
 
-console.log(path.resolve(__dirname));
+if (args.length < 1) {
+  console.error("Usage: node index.js <filename> [--verbose]");
+  process.exit(1);
+}
 
-const changelogPath = `${process.argv[2]}`;
-console.log(fs.readFileSync(changelogPath, 'UTF8').trim().split('\n'));
+const filename = args[0];
+const verbose = args.includes('--verbose');
 
-console.log(github.context);
-console.log(github);
+if (verbose) {
+  console.log("Verbose mode is ON");
+}
+
+console.log(`Processing file: ${filename}...`);
+
+run(github.context, filename, verbose);
+
+// process.argv.forEach((val, index) => {
+//     console.log(`${index}: ${val}`);
+// });
+
+// console.log(path.resolve(__dirname));
+
+// const changelogPath = `${process.argv[2]}`;
+// console.log(fs.readFileSync(changelogPath, 'UTF8').trim().split('\n'));
+
+// console.log(github.context);
+// console.log(github);

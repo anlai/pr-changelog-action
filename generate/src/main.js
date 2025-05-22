@@ -3,10 +3,12 @@ const github = require('@actions/github');
 const fs = require('fs');
 const path = require('path');
 
-const CHANGELOG_FILENAME = 'CHANGELOG.md';
+// const CHANGELOG_FILENAME = 'CHANGELOG.md';
 
-const testDir = path.resolve(__dirname);
-const changelogPath = path.join(testDir, CHANGELOG_FILENAME);
+// const testDir = path.resolve(__dirname);
+// const changelogPath = path.join(testDir, CHANGELOG_FILENAME);
+
+const rootPath = path.resolve(__dirname);
 
 function sanitize_line(line) {
     line = line.trim();
@@ -41,7 +43,7 @@ function correct_existing(lines) {
     return results;
 }
 
-async function run(context) {
+async function run(context, output_file, verbose) {
     try
     {
         const payload = context.payload;
@@ -52,8 +54,8 @@ async function run(context) {
         if (payload.pull_request) {
             const description = payload.pull_request.body.trim().split('\n').filter(line => line.trim() !== '').map(line => sanitize_line(line));
 
-            let existingContents = fs.existsSync(changelogPath) ?
-                fs.readFileSync(changelogPath, 'UTF8').trim().split('\n') : 
+            let existingContents = fs.existsSync(output_file) ?
+                fs.readFileSync(output_file, 'UTF8').trim().split('\n') : 
                 [];
 
             existingContents = correct_existing(existingContents);
@@ -73,7 +75,7 @@ async function run(context) {
             }
 
             const results = ([...pending, ...description, ...existingContents]);
-            fs.writeFileSync(changelogPath, results.join('\n'));
+            fs.writeFileSync(output_file, results.join('\n'));
         }
         else {
             console.log('not a pull request');

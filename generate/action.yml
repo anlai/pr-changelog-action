@@ -20,6 +20,7 @@ runs:
 
   - name: show current changelog
     run: |
+      echo "=== current changelog contents ==="
       cat "${{ inputs.output-file }}"
     shell: bash
     if: ${{ inputs.verbose == true }}
@@ -33,6 +34,7 @@ runs:
 
   - name: show updated changelog
     run: |
+      echo "=== updated changelog contents ==="
       cat "${{ inputs.output-file }}"
     shell: bash
     if: ${{ inputs.verbose == true }}
