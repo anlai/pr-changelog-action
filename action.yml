@@ -42,13 +42,13 @@ runs:
     shell: bash
     if: "${{ inputs.action == 'latest-changes' }}"
 
-  - name: set latest changes output
-    run: |
-      echo "changelog<<EOF" >> $GITHUB_OUTPUT
-      echo "${{ steps.latest-changes.outputs.changelog }}" >> $GITHUB_OUTPUT
-      echo "EOF" >> $GITHUB_OUTPUT
-    shell: bash
-    if: "${{ inputs.action == 'latest-changes' }}"
+  # - name: set latest changes output
+  #   run: |
+  #     echo "changelog<<EOF" >> $GITHUB_OUTPUT
+  #     echo "${{ steps.latest-changes.outputs.changelog }}" >> $GITHUB_OUTPUT
+  #     echo "EOF" >> $GITHUB_OUTPUT
+  #   shell: bash
+  #   if: "${{ inputs.action == 'latest-changes' }}"
 
 # runs:
 #   using: 'composite'
