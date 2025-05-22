@@ -1,5 +1,5 @@
 const github = require('@actions/github');
-const main = require('main.js');
+import { run } from './main.js';
 
 // // output_file = corsCheck.getInput('output-file');
 
@@ -25,7 +25,7 @@ if (verbose) {
 
 console.log(`Processing file: ${filename}...`);
 
-main.run(github.context, filename, verbose);
+run(github.context, filename, verbose);
 
 // process.argv.forEach((val, index) => {
 //     console.log(`${index}: ${val}`);
