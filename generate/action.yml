@@ -8,7 +8,7 @@ inputs:
   verbose:
     description: ''
     required: false
-    default: true
+    default: false
 
 runs:
   using: 'composite'
