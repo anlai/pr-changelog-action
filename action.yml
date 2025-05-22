@@ -39,6 +39,7 @@ runs:
     run: |
       echo "outer action test"
       echo "${{ steps.latest-changes.outputs.changelog }}"
+    shell: bash
     if: "${{ inputs.action == 'latest-changes' }}"
 
   - name: set latest changes output
