@@ -17,6 +17,10 @@ outputs:
 runs:
   using: 'composite'
   steps:
+  - name: verbosity
+    run: |
+      echo "verbose mode ${{ inputs.verbose }}..."
+    shell: bash
   - name: checkout pr source branch
     uses: actions/checkout@v4
     with:
