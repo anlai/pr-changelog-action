@@ -34,4 +34,6 @@ console.log(results);
 // fs.writeFileSync('PENDING_CHANGES.md', results);
 
 const output = process.env['GITHUB_OUTPUT'];
-fs.appendFileSync(output, `changelog=${results}${os.EOL}`);
+fs.appendFileSync(output, 'changelog<<EOF');
+fs.appendFileSync(output, `${results}`);
+fs.appendFileSync(output, 'EOF');
