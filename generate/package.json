@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Generate changelog from pull request body",
   "main": "index.js",
+  "type": "module",
   "directories": {
     "test": "tests"
   },
