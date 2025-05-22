@@ -8,4 +8,6 @@ const verbose = core.getInput('verbose');
 
 results = main.run(github.context, filename);
 
+console.log(results);
+
 core.setOutput('changelog', results);
