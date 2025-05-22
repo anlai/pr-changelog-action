@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Generate changelog from pull request body",
   "main": "index.js",
-  "type": "module",
   "directories": {
     "test": "tests"
   },
@@ -17,7 +16,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/anlai/pr-changelog-action/issues"
   },
