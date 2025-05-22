@@ -16,6 +16,7 @@ inputs:
 outputs:
   changelog:
     description: ''
+    value: ${{ steps.latest-changes.outputs.changelog }}
 
 runs:
   using: 'composite'
