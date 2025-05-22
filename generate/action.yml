@@ -37,5 +37,4 @@ runs:
       echo "=== updated changelog contents ==="
       cat "${{ inputs.output-file }}"
     shell: bash
-    if: ${{ inputs.verbose == true }}
   
