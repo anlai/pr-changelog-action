@@ -24,6 +24,9 @@ runs:
   - name: extract pending changes
     run: |
       npm install
-      echo "changelog=$(node ./src/index.js '${{ github.workspace }}/${{ inputs.changelog-file }}')" >> $GITHUB_OUTPUT
+      # echo "changelog=$(node ./src/index.js '${{ github.workspace }}/${{ inputs.changelog-file }}')" >> $GITHUB_OUTPUT
+
+      node ./src/index.js '${{ github.workspace }}/${{ inputs.changelog-file }}'
+
     shell: bash
     working-directory: "${{ github.action_path }}"
