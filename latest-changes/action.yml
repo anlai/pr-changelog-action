@@ -30,6 +30,7 @@ runs:
 
       cat PENDING_CHANGES.md
       echo "changelog=$(cat PENDING_CHANGES.md)" >> $GITHUB_OUTPUT
+      echo "EOF" >> $GITHUB_OUTPUT
 
     shell: bash
     working-directory: "${{ github.action_path }}"
