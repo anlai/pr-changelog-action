@@ -39,4 +39,4 @@ runs:
       echo "pending changes"
       echo "${{ steps.latest-changes.outputs.changelog }}"
     shell: bash
-    if: ${{ inputs.verbose == "true" }}
+    if: ${{ inputs.verbose == true }}
