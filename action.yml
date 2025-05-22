@@ -22,7 +22,6 @@ runs:
     with:
       output-file: ${{ inputs.output-file }}
       verbose: ${{ inputs.verbose }}
-    shell: bash
     if: "${{ inputs.action == 'generate' }}"
 
 # runs:
