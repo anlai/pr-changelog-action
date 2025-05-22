@@ -35,6 +35,12 @@ runs:
       verbose: ${{ inputs.verbose }}
     if: "${{ inputs.action == 'latest-changes' }}"
 
+  - name: testing output
+    run: |
+      echo "outer action test"
+      echo "${{ steps.latest-changes.outputs.changelog }}"
+    if: "${{ inputs.action == 'latest-changes' }}"
+
   - name: set latest changes output
     run: |
       echo "changelog<<EOF" >> $GITHUB_OUTPUT
