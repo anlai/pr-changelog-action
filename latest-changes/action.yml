@@ -36,6 +36,7 @@ runs:
 
   - name: show pending changes
     run: |
+      echo "pending changes"
       echo "${{ steps.latest-changes.outputs.changelog }}"
     shell: bash
     if: ${{ inputs.verbose == true }}
