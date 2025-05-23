@@ -1,7 +1,7 @@
 name: Test Generate
 
 on:
-  workflow_dispatch: ''
+  workflow_dispatch:
   push:
     paths:
       - 'generate/'
