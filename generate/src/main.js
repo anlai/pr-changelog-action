@@ -53,8 +53,8 @@ async function run(context, output_file, verbose) {
     {
         const payload = context.payload;
         
-        const labels = payload.pull_request.labels.map(label => label.name);
-        console.log('Pull Request Labels:', labels);
+        // const labels = payload.pull_request.labels.map(label => label.name);
+        // console.log('Pull Request Labels:', labels);
 
         if (payload.pull_request) {
             const description = payload.pull_request.body.trim().split('\n').filter(line => line.trim() !== '').map(line => sanitize_line(line));

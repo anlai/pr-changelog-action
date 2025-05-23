@@ -26,7 +26,7 @@ describe('no existing changelog', () => {
             }
         };
 
-        main.run(context);
+        main.run(context, changelogPath, false);
 
         const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe('- change 1\n- change 2');
@@ -43,7 +43,7 @@ describe('no existing changelog', () => {
             }
         };
 
-        main.run(context);
+        main.run(context, changelogPath, false);
 
         const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe('- change 1\n- change 2\n- change 3');
@@ -75,7 +75,7 @@ describe('existing changelog - no previous versions', () => {
             }
         };
 
-        main.run(context);
+        main.run(context, changelogPath, false);
 
         const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe('- change 1\n- change 2\n- change 3\n- change 4');
@@ -110,7 +110,7 @@ describe('existing changelog - previous version, no pending changes', () => {
             }
         };
 
-        main.run(context);
+        main.run(context, changelogPath, false);
 
         const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe('- change 3\n- change 4\n\n## v1.0.0\n- change 1\n- change 2');
@@ -145,7 +145,7 @@ describe('existing changelog - previous versions, no pending changes', () => {
             }
         };
 
-        main.run(context);
+        main.run(context, changelogPath, false);
 
         const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe('- change 4\n- change 5\n\n## v1.0.1\n- change 3\n\n## v1.0.0\n- change 1\n- change 2');
@@ -177,7 +177,7 @@ describe('malformed changelog', () => {
             }
         };
 
-        main.run(context);
+        main.run(context, changelogPath, false);
 
         const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe('- change 1\n- change 2\n- change 3\n\n## v1.0.0\n- change 4\n- change 5\n- change 6\n- change 7\n\n## v0.9.0\n- change a');
