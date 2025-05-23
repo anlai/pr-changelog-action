@@ -1,4 +1,4 @@
-name: Test Generate
+name: Test Generate Action
 
 on:
   workflow_dispatch:
