@@ -45,6 +45,7 @@ runs:
       git pull origin
       git checkout ${{ github.event.pull_request.head.ref }}
       git checkout stash -- "${{ inputs.changelog-path }}"
+    shell: bash
 
   # commit the changelog file to github.event.pull_request.head.ref
   - name: commit the changes
