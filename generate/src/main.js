@@ -1,17 +1,6 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
 const fs = require('fs');
 const path = require('path');
-
-// import core from '@actions/core';
-// import github from '@actions/github';
-// import fs from 'fs';
-// import path from 'path';
-
-// const CHANGELOG_FILENAME = 'CHANGELOG.md';
-
-// const testDir = path.resolve(__dirname);
-// const changelogPath = path.join(testDir, CHANGELOG_FILENAME);
 
 const rootPath = path.resolve(__dirname);
 
@@ -52,9 +41,6 @@ async function run(context, output_file, verbose) {
     try
     {
         const payload = context.payload;
-        
-        // const labels = payload.pull_request.labels.map(label => label.name);
-        // console.log('Pull Request Labels:', labels);
 
         if (payload.pull_request) {
             const description = payload.pull_request.body.trim().split('\n').filter(line => line.trim() !== '').map(line => sanitize_line(line));
@@ -91,5 +77,3 @@ async function run(context, output_file, verbose) {
 }
 
 module.exports = { run };
-
-// export default run;

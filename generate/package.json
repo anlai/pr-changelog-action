@@ -1,5 +1,5 @@
 {
-  "name": "pr-changelog-action",
+  "name": "generate-changelog-action",
   "version": "1.0.0",
   "description": "Generate changelog from pull request body",
   "main": "index.js",

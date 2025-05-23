@@ -1,14 +1,6 @@
 const github = require('@actions/github');
 const main = require('./main.js');
 
-// import { run } from './main.js';
-
-// import run from './main.js';
-
-// // output_file = corsCheck.getInput('output-file');
-
-// run(github.context);
-
 const fs = require('fs');
 const path = require('path');
 
@@ -30,16 +22,3 @@ if (verbose) {
 console.log(`Processing file: ${filename}...`);
 
 main.run(github.context, filename, verbose);
-
-
-// process.argv.forEach((val, index) => {
-//     console.log(`${index}: ${val}`);
-// });
-
-// console.log(path.resolve(__dirname));
-
-// const changelogPath = `${process.argv[2]}`;
-// console.log(fs.readFileSync(changelogPath, 'UTF8').trim().split('\n'));
-
-// console.log(github.context);
-// console.log(github);
