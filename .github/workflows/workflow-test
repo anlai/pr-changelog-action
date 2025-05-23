@@ -2,8 +2,6 @@ name: workflow test
 
 on:
   push:
-    branches:
-      - initial
 
 jobs:
   testing:
