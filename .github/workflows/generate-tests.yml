@@ -1,10 +1,10 @@
 name: Test Generate
 
 on:
-  workflow_dispatch:
-  # push:
-  #   paths:
-  #     - 'generate/'
+  # workflow_dispatch:
+  push:
+    paths:
+      - 'generate/'
 
 jobs:
   generate-unit-tests:
