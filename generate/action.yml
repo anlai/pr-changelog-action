@@ -38,3 +38,10 @@ runs:
     shell: bash
   
   ## TODO: write the change to the source branch of the PR
+
+  - name: switch branch
+    run: |
+      git stash -- "${{ inputs.changelog-path }}"
+      git pull origin
+      git checkout ${{ github.event.pull_request.head.ref }}
+      git checkout stash -- "${{ inputs.changelog-path }}"
