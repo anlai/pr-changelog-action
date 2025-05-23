@@ -2,9 +2,9 @@ name: Test Generate Action
 
 on:
   workflow_dispatch:
-
-# on:
-#   push:
+  push:
+    branches:
+    - initial
 #     paths:
 #       - 'generate/'
 

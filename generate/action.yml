@@ -45,3 +45,10 @@ runs:
       git pull origin
       git checkout ${{ github.event.pull_request.head.ref }}
       git checkout stash -- "${{ inputs.changelog-path }}"
+
+  # commit the changelog file to github.event.pull_request.head.ref
+  - name: commit the changes
+    uses: stefanzweifel/git-auto-commit-action@master
+    with:
+      branch: ${{ github.event.pull_request.head.ref }}
+      commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"      
