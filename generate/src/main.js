@@ -2,8 +2,6 @@ const core = require('@actions/core');
 const fs = require('fs');
 const path = require('path');
 
-const rootPath = path.resolve(__dirname);
-
 function sanitize_line(line) {
     line = line.trim();
 
@@ -37,7 +35,7 @@ function correct_existing(lines) {
     return results;
 }
 
-async function run(context, output_file, verbose) {
+async function run(context, changelog_path, verbose) {
     try
     {
         const payload = context.payload;
@@ -45,8 +43,8 @@ async function run(context, output_file, verbose) {
         if (payload.pull_request) {
             const description = payload.pull_request.body.trim().split('\n').filter(line => line.trim() !== '').map(line => sanitize_line(line));
 
-            let existingContents = fs.existsSync(output_file) ?
-                fs.readFileSync(output_file, 'UTF8').trim().split('\n') : 
+            let existingContents = fs.existsSync(changelog_path) ?
+                fs.readFileSync(changelog_path, 'UTF8').trim().split('\n') : 
                 [];
 
             existingContents = correct_existing(existingContents);
@@ -66,7 +64,7 @@ async function run(context, output_file, verbose) {
             }
 
             const results = ([...pending, ...description, ...existingContents]);
-            fs.writeFileSync(output_file, results.join('\n'));
+            fs.writeFileSync(changelog_path, results.join('\n'));
         }
         else {
             console.log('not a pull request');
