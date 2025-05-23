@@ -1,10 +1,9 @@
 name: Generate Change Log
 description: ''
 inputs:
-  output-file:
+  changelog-path:
     description: ''
     required: false
-    default: 'CHANGELOG.md'
   verbose:
     description: ''
     required: false
@@ -21,21 +20,21 @@ runs:
   - name: show current changelog
     run: |
       echo "=== current changelog contents ==="
-      cat "${{ inputs.output-file }}"
+      cat "${{ inputs.changelog-path }}"
     shell: bash
     if: ${{ inputs.verbose == 'true' }}
 
   - name: generate new change Log
     run: |
       npm install
-      node ./src/index.js "${{ github.workspace }}/${{ inputs.output-file }}"
+      node ./src/index.js "${{ github.workspace }}/${{ inputs.changelog-path }}"
     shell: bash
     working-directory: "${{ github.action_path }}"
 
   - name: show updated changelog
     run: |
       echo "=== updated changelog contents ==="
-      cat "${{ inputs.output-file }}"
+      cat "${{ inputs.changelog-path }}"
     shell: bash
   
   ## TODO: write the change to the source branch of the PR
