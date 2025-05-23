@@ -37,8 +37,6 @@ runs:
       cat "${{ inputs.changelog-path }}"
     shell: bash
   
-  ## TODO: write the change to the source branch of the PR
-
   - name: switch branch
     run: |
       git stash -- "${{ inputs.changelog-path }}"
@@ -47,7 +45,6 @@ runs:
       git checkout stash -- "${{ inputs.changelog-path }}"
     shell: bash
 
-  # commit the changelog file to github.event.pull_request.head.ref
   - name: commit the changes
     uses: stefanzweifel/git-auto-commit-action@master
     with:
