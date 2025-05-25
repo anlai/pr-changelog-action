@@ -1,0 +1,130 @@
+name: 'PR Change Log Generator'
+description: ''
+inputs:
+  action:
+    description: ''
+    required: false
+    default: 'generate' # options: generate, latest-changes, tag
+  changelog-path:
+    description: ''
+    required: false
+    default: CHANGELOG.md
+  verbose:
+    description: ''
+    required: false
+    default: 'false'
+outputs:
+  changelog:
+    description: ''
+    value: ${{ steps.latest-changes.outputs.changelog }}
+
+runs:
+  using: 'composite'
+  steps:
+  - name: selected action
+    run: |
+      echo "running ${{ inputs.action }}..."
+      echo "verbose mode ${{ inputs.verbose }}..."
+    shell: bash
+
+  - name: generate change log
+    uses: anlai/pr-changelog-action/generate@initial
+    with:
+      changelog-path: ${{ inputs.changelog-path }}
+      verbose: ${{ inputs.verbose }}
+    if: "${{ inputs.action == 'generate' }}"
+
+  - name: get pending changes from change log
+    id: latest-changes
+    uses: anlai/pr-changelog-action/latest-changes@initial
+    with:
+      changelog-path: ${{ inputs.changelog-path }}
+      verbose: ${{ inputs.verbose }}
+    if: "${{ inputs.action == 'latest-changes' }}"
+
+  # - name: tag pending changes
+  #   id: tag-changes
+  #   uses: anlai/pr-changelog-action/tag@initial
+  #   with:
+  #     changelog-path: ${{ inputs.changelog-path }}
+  #     version: ${{ inputs.version }}
+  #     verbose: ${{ inputs.verbose }}
+  #   if: "${{ inputs.action == 'tag' }}"
+
+
+  # - name: set latest changes output
+  #   run: |
+  #     echo "changelog<<EOF" >> $GITHUB_OUTPUT
+  #     echo "${{ steps.latest-changes.outputs.changelog }}" >> $GITHUB_OUTPUT
+  #     echo "EOF" >> $GITHUB_OUTPUT
+  #   shell: bash
+  #   if: "${{ inputs.action == 'latest-changes' }}"
+
+# runs:
+#   using: 'composite'
+#   steps:
+#   - name: checkout
+#     uses: actions/checkout@v4
+#     with:
+#       ref: ${{ github.event.pull_request.base.ref }}
+
+#   # - name: Get Current Changelog
+#   #   uses: actions/checkout@v4
+#   #   with:
+#   #     ref: ${{ github.event.pull_request.base.ref }}
+#   #     sparse-checkout: |
+#   #       CHANGELOG.md
+#   #     sparse-checkout-cone-mode: false
+
+#   - name: show changelog
+#     run: |
+#       cat CHANGELOG.md
+#     shell: bash
+
+#   # update the changelog file
+
+#   - name: Update CHANGELOG
+#     run: |
+#       echo "${{ github.run_number }}" >> CHANGELOG.md
+#     shell: bash
+
+#   - name: show changelog
+#     run: |
+#       cat CHANGELOG.md
+#     shell: bash
+
+#   - name: show branch
+#     run: |
+#       git stash -- CHANGELOG.md
+#       git pull origin
+#       git checkout ${{ github.event.pull_request.head.ref }}
+#       git checkout stash -- CHANGELOG.md
+
+#       echo ""
+#       echo ""
+#       git status
+
+#       cat CHANGELOG.md
+#     shell: bash
+
+#   - name: DEBUG
+#     run: |
+#       ls "${{ github.action_path }}"
+#     shell: bash
+
+#   - name: TESTING
+#     run: |
+#       npm install
+#       node src/index.js "${{ github.workspace }}"
+#       # npm install @actions/core 
+#       # npm install @actions/github
+#       # node "${{ github.action_path }}/src/index.js" "$(pwd)/CHANGELOG.md"
+#     working-directory: "${{ github.action_path }}"
+#     shell: bash
+
+#   # # commit the changelog file to github.event.pull_request.head.ref
+#   # - name: commit the changes
+#   #   uses: stefanzweifel/git-auto-commit-action@master
+#   #   with:
+#   #     branch: ${{ github.event.pull_request.head.ref }}
+#   #     commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"

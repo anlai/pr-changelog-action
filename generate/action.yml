@@ -1,0 +1,52 @@
+name: Generate Change Log
+description: ''
+inputs:
+  changelog-path:
+    description: ''
+    required: false
+  verbose:
+    description: ''
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+  - name: checkout pr target branch
+    uses: actions/checkout@v4
+    with:
+      ref: ${{ github.event.pull_request.base.ref }}
+
+  - name: show current changelog
+    run: |
+      echo "=== current changelog contents ==="
+      cat "${{ inputs.changelog-path }}"
+    shell: bash
+    if: ${{ inputs.verbose == 'true' }}
+
+  - name: generate new change Log
+    run: |
+      npm install
+      node ./src/index.js "${{ github.workspace }}/${{ inputs.changelog-path }}"
+    shell: bash
+    working-directory: "${{ github.action_path }}"
+
+  - name: show updated changelog
+    run: |
+      echo "=== updated changelog contents ==="
+      cat "${{ inputs.changelog-path }}"
+    shell: bash
+  
+  - name: switch branch
+    run: |
+      git stash -- "${{ inputs.changelog-path }}"
+      git pull origin
+      git checkout ${{ github.event.pull_request.head.ref }}
+      git checkout stash -- "${{ inputs.changelog-path }}"
+    shell: bash
+
+  - name: commit the changes
+    uses: stefanzweifel/git-auto-commit-action@master
+    with:
+      branch: ${{ github.event.pull_request.head.ref }}
+      commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"      
