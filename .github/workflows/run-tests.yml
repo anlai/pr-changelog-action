@@ -16,8 +16,16 @@ jobs:
         with:
           node-version: '23'
 
-      - name: Install dependencies
+      - name: Generate - Install dependencies
         run: npm install
-
-      - name: Run Jest tests
+        working-directory: generate/src
+      - name: Generate - Run Jest tests
         run: npm test
+        working-directory: generate/src
+
+      - name: Latest Changes - Install dependencies
+        run: npm install
+        working-directory: latest-changes/src
+      - name: Latest Changes - Run Jest tests
+        run: npm test
+        working-directory: latest-changes/src
