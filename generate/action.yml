@@ -40,16 +40,17 @@ runs:
   
   - name: switch branch
     run: |
-      ls
       git stash -- "${{ inputs.changelog-path }}"
       git pull origin
       git checkout ${{ github.event.pull_request.head.ref }}
       git checkout stash -- "${{ inputs.changelog-path }}"
-      ls
+      git add "${{ inputs.changelog-path }}"
+      git commit -m "Updating CHANGELOG from ${{ github.event.pull_request.title }}"
+      git push origin "${{ github.event.pull_request.head.ref }}"
     shell: bash
 
-  - name: commit the changes
-    uses: stefanzweifel/git-auto-commit-action@master
-    with:
-      branch: ${{ github.event.pull_request.head.ref }}
-      commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"      
+  #- name: commit the changes
+  #  uses: stefanzweifel/git-auto-commit-action@master
+  #  with:
+  #    branch: ${{ github.event.pull_request.head.ref }}
+  #    commit_message: "Updating CHANGELOG from ${{ github.event.pull_request.title }}"      
