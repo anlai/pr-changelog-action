@@ -40,6 +40,7 @@ runs:
   
   - name: switch branch
     run: |
+      git add "${{ inputs.changelog-path }}"
       git stash -- "${{ inputs.changelog-path }}"
       git pull origin
       git checkout ${{ github.event.pull_request.head.ref }}
