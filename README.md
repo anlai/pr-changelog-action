@@ -111,3 +111,60 @@ uses: anlai/pr-changelog-action/tag-release@main
 with:
     tag: v1.0.0
 ```
+
+## Sample Workflows
+
+```yaml
+name: Generate Changelog
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: anlai/pr-changelog-action/generate@main
+```
+
+
+```yaml
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: ''
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Get Pending Changes
+      uses: anlai/pr-changelog-action/latest-changes@main
+      id: latest-changes
+
+    - name: Update Changelog with Version
+      uses: anlai/pr-changelog-action/tag-release@main
+      with:
+        tag: "${{ inputs.tag }}"
+
+    - name: Commit Changelog Changes
+      uses: stefanzweifel/git-auto-commit-action@master
+      with:
+        commit_message: "tagged version ${{ inputs.tag }}"      
+    
+    - name: Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: "${{ inputs.tag }}"
+        body: "${{ steps.latest-changes.outputs.changelog }}"
+```
