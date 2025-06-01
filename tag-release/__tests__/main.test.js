@@ -27,7 +27,7 @@ describe('no pending changes', () => {
         main.run(TAG, changelogPath, false);
         
         const results = fs.readFileSync(changelogPath, 'UTF8');
-        expect(results).toBe(`## ${TAG}\n- no changes`);
+        expect(results).toBe(`\n## ${TAG}\n- no changes`);
 
     });
 
@@ -38,7 +38,7 @@ describe('no pending changes', () => {
         main.run(TAG, changelogPath, false);
         
         const results = fs.readFileSync(changelogPath, 'UTF8');
-        expect(results).toBe(`## ${TAG}\n- no changes\n\n${existing}`);
+        expect(results).toBe(`\n## ${TAG}\n- no changes\n\n${existing}`);
 
     });
 
@@ -55,7 +55,7 @@ describe('existing pending changes, well formatted', () => {
         main.run(TAG, changelogPath, false);
         
         const results = fs.readFileSync(changelogPath, 'UTF8');
-        expect(results).toBe(`## ${TAG}\n${existing}`);
+        expect(results).toBe(`\n## ${TAG}\n${existing}`);
 
     });
 
@@ -66,7 +66,7 @@ describe('existing pending changes, well formatted', () => {
         main.run(TAG, changelogPath, false);
         
         const results = fs.readFileSync(changelogPath, 'UTF8');
-        expect(results).toBe(`## ${TAG}\n${existing}`);
+        expect(results).toBe(`\n## ${TAG}\n${existing}`);
 
     });
 
@@ -76,42 +76,54 @@ describe('existing pending changes, malformed', () => {
 
     afterEach(cleanupChangelog);
 
-    const expectedPending = `## ${TAG}\n- change 1\n- change 2`;
+    const expectedPending = `\n## ${TAG}\n- change 1\n- change 2`;
     const expectedExisting = '## v1.0.0\n- change 1\n- change 2';
 
     test('no previous versions, missing dashes', () => {
         writeChangelog('change 1\nchange 2');
-        const results = main.run(TAG, changelogPath, false);
+        main.run(TAG, changelogPath, false);
+
+        const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe(expectedPending);
     });
 
     test('no previous versions, extra spaces', () => {
         writeChangelog('-   change 1\n-  change 2');
-        const results = main.run(TAG, changelogPath, false);
+        main.run(TAG, changelogPath, false);
+
+        const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe(expectedPending);
     });
 
     test('no previous versions, extra lines', () => {
         writeChangelog('\n- change 1\n\n- change 2\n');
-        const results = main.run(TAG, changelogPath, false);
+        main.run(TAG, changelogPath, false);
+
+        const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe(expectedPending);
     });
 
     test('previous versions, missing dashes', () => {
-        writeChangelog('change 1\nchange 2\n\n## v1.0.0\nchange 1\n- change 2');
-        const results = main.run(TAG, changelogPath, false);
+        writeChangelog('change 1\nchange 2\n\n\n## v1.0.0\nchange 1\n- change 2');
+        main.run(TAG, changelogPath, false);
+
+        const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe(`${expectedPending}\n\n${expectedExisting}`);
     });
 
     test('previous versions, extra spaces', () => {
         writeChangelog('-   change 1\n-  change 2\n\n## v1.0.0\n- change 1\n-     change 2');
-        const results = main.run(TAG, changelogPath, false);
+        main.run(TAG, changelogPath, false);
+
+        const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe(`${expectedPending}\n\n${expectedExisting}`);
     });
 
     test('previous versions, extra lines', () => {
-        writeChangelog('\n- change 1\n\n- change 2\n\n\n## v1.0.0\n-change 1\n\n- change 2');
-        const results = main.run(TAG, changelogPath, false);
+        writeChangelog('\n- change 1\n\n- change 2\n\n## v1.0.0\n-change 1\n\n- change 2');
+        main.run(TAG, changelogPath, false);
+
+        const results = fs.readFileSync(changelogPath, 'UTF8');
         expect(results).toBe(`${expectedPending}\n\n${expectedExisting}`);
     });
 
