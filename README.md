@@ -14,6 +14,7 @@ The overall process for this action:
     - Create a release with the list of pending changes
     - Update the changelog is main, with the new version # (capability coming soon)
 
+
 ## Format of changelog
 
 The default file location is root of the repository and named `CHANGELOG.md`.  This is the format of the changelog file that will be generated with the version titles added via the release process outlined above.
@@ -33,25 +34,26 @@ The default file location is root of the repository and named `CHANGELOG.md`.  T
 
 ## Parameters
 
+This repository contains 2 actions, one to create/update the changelog file (`anlai/pr-changelog-action/generate`), and one that will parse the change log and return latest unreleased changes (`anlai/pr-changelog-action/latest-changes`).
+
 | name | type | required | description |
 | --- | --- | --- | --- |
-| action | input | yes | which action to take:<br/>- generate -- create/update the changelog file<br/>- latest-changes -- parse the lateset changes in changelog file and output to changelog output parameter <br/> **options:** generate, latest-changes<br/> **default:** generate |
 | changelog-path | input | no | path and filename to the changelog file, relative path from the root of the repository <br/> **default:** CHANGELOG.md |
 | verbose | input | no | verbose output<br/> **default:** false |
-| changelog | output | n/a | the list of pending changes which can be used for other workflow actions<br/> **note:** only populated when action is "latest-changes" |
+| changelog | output | n/a | the list of pending changes which can be used for other workflow actions<br/> **note:** only populated with "latest-changes" action |
 
 ## Usage:
 
 Generate/update the changelog file, with the default location
 
 ```yaml
-uses: anlai/pr-changelog-action
+uses: anlai/pr-changelog-action/generate@main
 ```
 
 Generate/update the changelog file, at a custom location
 
 ```yaml
-uses: anlai/pr-changelog-action
+uses: anlai/pr-changelog-action/generate@main
 with:
     changelog-path: 'release/changelog.md'
 ```
@@ -59,10 +61,8 @@ with:
 Get the list of pending changes in the change log, echo the changes, but can be used to input into other actions
 
 ```yaml
-- uses: anlai/pr-changelog-action
+- uses: anlai/pr-changelog-action/latest-changes@main
   id: latest-changes
-  with:
-    action: latest-changes
 
 - run: |
     echo "${{ steps.latest-changes.outputs.changelog }}"

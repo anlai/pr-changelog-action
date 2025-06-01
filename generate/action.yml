@@ -4,6 +4,7 @@ inputs:
   changelog-path:
     description: ''
     required: false
+    default: 'CHANGELOG.md'
   verbose:
     description: ''
     required: false
