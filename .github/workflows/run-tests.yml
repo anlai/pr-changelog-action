@@ -32,3 +32,10 @@ jobs:
       - name: Latest Changes - Run Jest tests
         run: npm test
         working-directory: latest-changes/src
+
+      - name: Tag Release - Install dependencies
+        run: npm install
+        working-directory: tag-release/src
+      - name: Tag Release - Run Jest tests
+        run: npm test
+        working-directory: tag-release/src
