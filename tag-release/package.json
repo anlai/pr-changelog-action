@@ -1,0 +1,31 @@
+{
+  "name": "tag-release-action",
+  "version": "1.0.0",
+  "description": "Tag the release for pending changes",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anlai/pr-changelog-action.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/anlai/pr-changelog-action/issues"
+  },
+  "homepage": "https://github.com/anlai/pr-changelog-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

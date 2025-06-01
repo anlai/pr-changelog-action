@@ -1,0 +1,21 @@
+name: Tag Release
+description: ''
+inputs:
+  tag:
+    description: ''
+    required: true
+  changelog-path:
+    description: ''
+    required: false
+    default: 'CHANGELOG.md'
+  verbose:
+    description: ''
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+  - run: |
+      echo '## ${{ inputs.tag }}' | cat - "${{ inputs.changelog-path }}" > temp && mv temp "${{ inputs.changelog-path }}"
+    shell: bash
