@@ -28,7 +28,7 @@ runs:
     shell: bash
 
   - name: generate change log
-    uses: ./generate
+    uses: "${{ github.action_path }}/generate"
     with:
       changelog-path: ${{ inputs.changelog-path }}
       verbose: ${{ inputs.verbose }}
@@ -36,7 +36,7 @@ runs:
 
   - name: get pending changes from change log
     id: latest-changes
-    uses: ./latest-changes
+    uses: "${{ github.action_path }}/latest-changes"
     with:
       changelog-path: ${{ inputs.changelog-path }}
       verbose: ${{ inputs.verbose }}
