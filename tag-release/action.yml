@@ -16,6 +16,12 @@ inputs:
 runs:
   using: 'composite'
   steps:
-  - run: |
-      echo '## ${{ inputs.tag }}' | cat - "${{ inputs.changelog-path }}" > temp && mv temp "${{ inputs.changelog-path }}"
+  - name: checkout
+    uses: actions/checkout@v4
+    
+  - name: tag changelog
+    run: |
+      npm install
+      node ./src/index.js "${{ github.workspace }}/${{ inputs.changelog-path }}" "${{ inputs.tag }}"
     shell: bash
+    working-directory: "${{ github.action_path }}"
