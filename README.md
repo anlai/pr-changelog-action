@@ -114,6 +114,10 @@ with:
 
 ## Sample Workflows
 
+These two workflows handle the situation when creating PRs, the change log will be updated and when a release is created it will update the changelog file and create a release.
+
+Note that you need to ensure the workflow had edit permissions.
+
 ```yaml
 name: Generate Changelog
 
