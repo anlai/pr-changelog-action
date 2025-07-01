@@ -1,0 +1,27 @@
+name: Tag Release
+description: ''
+inputs:
+  tag:
+    description: ''
+    required: true
+  changelog-path:
+    description: ''
+    required: false
+    default: 'CHANGELOG.md'
+  verbose:
+    description: ''
+    required: false
+    default: 'false'
+
+runs:
+  using: 'composite'
+  steps:
+  - name: checkout
+    uses: actions/checkout@v4
+    
+  - name: tag changelog
+    run: |
+      npm install
+      node ./src/index.js "${{ github.workspace }}/${{ inputs.changelog-path }}" "${{ inputs.tag }}"
+    shell: bash
+    working-directory: "${{ github.action_path }}"
