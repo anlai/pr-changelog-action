@@ -20,6 +20,7 @@ runs:
 
   - name: show current changelog
     run: |
+      touch "${{ inputs.changelog-path }}"
       echo "=== current changelog contents ==="
       cat "${{ inputs.changelog-path }}"
     shell: bash
